@@ -46,4 +46,14 @@ public class LibraryTest {
         assertThrows(IllegalArgumentException.class, () -> library.addBook(new Book("Book A")), "Adding a duplicate book should throw an exception");
         assertEquals(2, library.getBooks().size(), "Library size should remain 2 after trying to add duplicate");
     }
+
+    @Test
+    void canRetrieveTitleByPosition() {
+        Library library = new Library();
+        library.addBook(new Book("Book B"));
+        library.addBook(new Book("Book A"));
+
+        assertEquals("Book A", library.getBookTitle(0), "Library should return 'Book A' at position 0");
+        assertEquals("Book B", library.getBookTitle(1), "Library should return 'Book B' at position 1");
+    }
 }
