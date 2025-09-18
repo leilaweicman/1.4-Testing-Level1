@@ -26,4 +26,14 @@ public class LibraryTest {
 
         assertEquals( 3, library.getBooks().size(), "Library should contain 3 books after adding them");
     }
+
+    @Test
+    void booksListHasBookInSpecificPosition() {
+        Library library = new Library();
+        library.addBook(new Book("Book A"));
+        library.addBook(new Book("Book B"));
+        library.addBook(new Book("Book C"));
+
+        assertEquals("Book B", library.getBookTitle(1), "Library should return 'Book B' at position 1");
+    }
 }
