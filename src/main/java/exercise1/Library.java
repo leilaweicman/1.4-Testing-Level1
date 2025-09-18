@@ -35,6 +35,13 @@ public class Library {
         return true;
     }
 
+    public boolean deleteBookByTitle(String title) {
+        Objects.requireNonNull(title, "title must not be null");
+        boolean removed = books.removeIf(book -> book.getTitle().equalsIgnoreCase(title));
+        if (removed) sortByTitle();
+        return removed;
+    }
+
     private boolean containsTitle(String title) {
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) return true;
