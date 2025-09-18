@@ -17,7 +17,7 @@ public class Library {
     }
 
     public boolean addBook(Book book) {
-        Objects.requireNonNull(book, "book must not be null");
+        validateBook(book);
         if (containsTitle(book.getTitle())) return false;
         books.add(book);
         sortByTitle();
@@ -25,8 +25,7 @@ public class Library {
     }
 
     public boolean addBook(Book book, int position) {
-        Objects.requireNonNull(book, "book must not be null");
-        if (containsTitle(book.getTitle())) return false;
+       validateBook(book);
         if (position < 0 || position > books.size()) {
             throw new IndexOutOfBoundsException("index: " + position);
         }
@@ -36,10 +35,21 @@ public class Library {
     }
 
     public boolean deleteBookByTitle(String title) {
-        Objects.requireNonNull(title, "title must not be null");
+        validateTitle(title);
         boolean removed = books.removeIf(book -> book.getTitle().equalsIgnoreCase(title));
         if (removed) sortByTitle();
         return removed;
+    }
+
+    public void validateBook(Book book) {
+        Objects.requireNonNull(book, "book must not be null");
+        if (containsTitle(book.getTitle())) {
+            throw new IllegalArgumentException("Book already exists: " + book.getTitle());
+        }
+    }
+
+    private void validateTitle(String title) {
+        Objects.requireNonNull(title, "title must not be null");
     }
 
     private boolean containsTitle(String title) {
