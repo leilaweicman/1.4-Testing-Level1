@@ -24,6 +24,17 @@ public class Library {
         return true;
     }
 
+    public boolean addBook(Book book, int position) {
+        Objects.requireNonNull(book, "book must not be null");
+        if (containsTitle(book.getTitle())) return false;
+        if (position < 0 || position > books.size()) {
+            throw new IndexOutOfBoundsException("index: " + position);
+        }
+        books.add(position, book);
+        sortByTitle();
+        return true;
+    }
+
     private boolean containsTitle(String title) {
         for (Book book : books) {
             if (book.getTitle().equalsIgnoreCase(title)) return true;
