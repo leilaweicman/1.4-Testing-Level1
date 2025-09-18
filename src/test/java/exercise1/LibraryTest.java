@@ -56,4 +56,16 @@ public class LibraryTest {
         assertEquals("Book A", library.getBookTitle(0), "Library should return 'Book A' at position 0");
         assertEquals("Book B", library.getBookTitle(1), "Library should return 'Book B' at position 1");
     }
+
+    @Test
+    void addBookShouldModifyBooksList() {
+        Library library = new Library();
+        Book book = new Book("Book A");
+
+        boolean added = library.addBook(book);
+
+        assertEquals(1, library.getBooks().size(), "Library should contain 1 book after adding");
+        assertTrue(added, "Book should be added successfully");
+        assertEquals("Book A", library.getBooks().get(0).getTitle(), "The added book should be in the list");
+    }
 }
