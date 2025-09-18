@@ -41,7 +41,7 @@ public class Library {
         return removed;
     }
 
-    public void validateBook(Book book) {
+    private void validateBook(Book book) {
         Objects.requireNonNull(book, "book must not be null");
         if (containsTitle(book.getTitle())) {
             throw new IllegalArgumentException("Book already exists: " + book.getTitle());
