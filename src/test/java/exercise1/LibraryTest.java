@@ -68,4 +68,17 @@ public class LibraryTest {
         assertTrue(added, "Book should be added successfully");
         assertEquals("Book A", library.getBooks().get(0).getTitle(), "The added book should be in the list");
     }
+
+    @Test
+    void deleteBookShouldDecreaseListSize() {
+        Library library = new Library();
+        library.addBook(new Book("Book A"));
+        library.addBook(new Book("Book B"));
+
+        int initialSize = library.getBooks().size();
+        boolean deleted = library.deleteBookByTitle("Book B");
+
+        assertTrue(deleted, "Book should be deleted successfully");
+        assertEquals(initialSize - 1, library.getBooks().size(), "Library size should decrease after deletion");
+    }
 }
