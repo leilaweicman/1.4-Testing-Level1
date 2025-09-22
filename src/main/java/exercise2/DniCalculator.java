@@ -2,8 +2,13 @@ package exercise2;
 
 public class DniCalculator {
 
-    public static String calculateLetter(int dniNumber) {
+    private static final String LETTERS = "TRWAGMYFPDXBNJZSQVHLCKE";
 
-        return "";
+    public static char calculateLetter(int dniNumber) {
+        if (dniNumber < 0) {
+            throw new IllegalArgumentException("DNI number cannot be negative.");
+        }
+        int index = dniNumber % 23;
+        return LETTERS.charAt(index);
     }
 }
