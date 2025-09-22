@@ -1,5 +1,6 @@
 package exercise1;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -8,43 +9,45 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
 
+    private Library library;
+
+    @BeforeEach
+    void setUp() {
+        library = new Library();
+    }
+
+    private void addBooks(String... titles) {
+        for (String t : titles) {
+            library.addBook(new Book(t));
+        }
+    }
     @Test
     void booksListIsNotNullOnNewLibrary() {
-        Library library = new Library();
         assertNotNull(library.getBooks());
     }
 
     @Test
     void booksListIsEmptyOnNewLibrary() {
-        Library library = new Library();
         assertEquals(0, library.getBooks().size());
     }
 
     @Test
     void booksListHasExpectedSizeAfterInsertBooks() {
-        Library library = new Library();
-        library.addBook(new Book("Book A"));
-        library.addBook(new Book("Book B"));
-        library.addBook(new Book("Book C"));
+        addBooks("Book A", "Book B", "Book C");
 
         assertEquals( 3, library.getBooks().size(), "Library should contain 3 books after adding them");
     }
 
     @Test
     void booksListHasBookInSpecificPosition() {
-        Library library = new Library();
-        library.addBook(new Book("Book A"));
-        library.addBook(new Book("Book B"));
-        library.addBook(new Book("Book C"));
+        addBooks("Book A", "Book B", "Book C");
 
         assertEquals("Book B", library.getBookTitle(1), "Library should return 'Book B' at position 1");
     }
 
     @Test
     void booksLibraryHasNoDuplicateTitles() {
-        Library library = new Library();
-        library.addBook(new Book("Book A"));
-        library.addBook(new Book("Book B"));
+        addBooks("Book A", "Book B");
 
         assertThrows(IllegalArgumentException.class, () -> library.addBook(new Book("Book A")), "Adding a duplicate book should throw an exception");
         assertEquals(2, library.getBooks().size(), "Library size should remain 2 after trying to add duplicate");
@@ -52,9 +55,7 @@ public class LibraryTest {
 
     @Test
     void canRetrieveTitleByPosition() {
-        Library library = new Library();
-        library.addBook(new Book("Book B"));
-        library.addBook(new Book("Book A"));
+        addBooks("Book B", "Book A");
 
         assertEquals("Book A", library.getBookTitle(0), "Library should return 'Book A' at position 0");
         assertEquals("Book B", library.getBookTitle(1), "Library should return 'Book B' at position 1");
@@ -62,9 +63,7 @@ public class LibraryTest {
 
     @Test
     void addBookShouldModifyBooksList() {
-        Library library = new Library();
         Book book = new Book("Book A");
-
         boolean added = library.addBook(book);
 
         assertEquals(1, library.getBooks().size(), "Library should contain 1 book after adding");
@@ -74,10 +73,7 @@ public class LibraryTest {
 
     @Test
     void addBookShouldKeepListOrderedAlphabetically() {
-        Library library = new Library();
-        library.addBook(new Book("Book C"));
-        library.addBook(new Book("Book A"));
-        library.addBook(new Book("Book B"));
+        addBooks("Book C", "Book A", "Book B");
 
         library.addBook(new Book("Book D"), 1);
 
@@ -88,9 +84,7 @@ public class LibraryTest {
 
     @Test
     void deleteBookShouldDecreaseListSize() {
-        Library library = new Library();
-        library.addBook(new Book("Book A"));
-        library.addBook(new Book("Book B"));
+        addBooks("Book A", "Book B");
 
         int initialSize = library.getBooks().size();
         boolean deleted = library.deleteBookByTitle("Book B");
