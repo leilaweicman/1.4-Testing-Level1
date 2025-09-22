@@ -1,6 +1,9 @@
 package exercise1;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryTest {
@@ -67,6 +70,20 @@ public class LibraryTest {
         assertEquals(1, library.getBooks().size(), "Library should contain 1 book after adding");
         assertTrue(added, "Book should be added successfully");
         assertEquals("Book A", library.getBooks().get(0).getTitle(), "The added book should be in the list");
+    }
+
+    @Test
+    void addBookShouldKeepListOrderedAlphabetically() {
+        Library library = new Library();
+        library.addBook(new Book("Book C"));
+        library.addBook(new Book("Book A"));
+        library.addBook(new Book("Book B"));
+
+        library.addBook(new Book("Book D"), 1);
+
+        List<String> titles = library.getBooks().stream().map(Book::getTitle).toList();
+
+        assertEquals(List.of("Book A", "Book B", "Book C", "Book D"), titles, "Books should remain in alphabetical order after insertion");
     }
 
     @Test
