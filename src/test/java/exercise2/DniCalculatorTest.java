@@ -27,7 +27,7 @@ public class DniCalculatorTest {
 
     @ParameterizedTest
     @MethodSource("dniDataProvider")
-    void testDniLetterCalculation(int dniNumber, char expectedLetter) {
+    void shouldCalculateCorrectLetterForValidDni(int dniNumber, char expectedLetter) {
         char result = DniCalculator.calculateLetter(dniNumber);
         assertEquals(expectedLetter, result, () -> "Expected " + expectedLetter + " but got " + result + " for DNI " + dniNumber);
     }
