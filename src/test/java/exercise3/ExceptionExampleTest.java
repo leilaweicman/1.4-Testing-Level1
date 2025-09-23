@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ExceptionExampleTest {
 
     @Test
-    void testArrayIndexOutOfBoundsException() {
+    void shouldThrowsArrayIndexOutOfBoundsExceptionWhenIndexIsInvalid() {
         assertThrows(
                 ArrayIndexOutOfBoundsException.class,
                 ExceptionExample::causeException,
